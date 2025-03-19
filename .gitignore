@@ -1,0 +1,92 @@
+# ==========================
+# 🔹 GERAL
+# ==========================
+.DS_Store
+Thumbs.db
+*.log
+*.bak
+*.swp
+*.swo
+.idea/
+.vscode/
+node_modules/
+target/
+build/
+dist/
+out/
+
+# ==========================
+# 🔹 BACKEND - Java Spring Boot
+# ==========================
+**/build/
+**/out/
+**/target/
+**/*.jar
+**/*.war
+**/*.ear
+!src/main/resources/
+!.mvn/wrapper/maven-wrapper.jar
+
+# Logs e Cache
+logs/
+*.log
+hs_err_pid*
+bin/
+*.iml
+.mvn/
+.classpath
+.project
+.settings/
+
+# Arquivos Sensíveis
+.env
+.env.local
+.env.development
+.env.production
+*.keystore
+*.p12
+*.pem
+*.crt
+*.key
+
+# IDEs
+/.idea/
+/.vscode/
+/*.iml
+
+# ==========================
+# 🔹 FRONTEND - Angular
+# ==========================
+node_modules/
+dist/
+out-tsc/
+coverage/
+.angular/
+.npm/
+
+# Arquivos Temporários
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# Configuração específica do Angular CLI
+/.angular/cache/
+
+# ==========================
+# 🔹 DOCKER
+# ==========================
+/docker-compose.override.yml
+/.dockerignore
+/.env
+
+# ==========================
+# 🔹 SISTEMAS OPERACIONAIS
+# ==========================
+*.swp
+*.swo
+*.swn
+*.swd
+*.bak
+*~

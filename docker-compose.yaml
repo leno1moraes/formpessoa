@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+
+  database:
+    image: postgres:12-bullseye
+    container_name: postgres_db
+    environment:
+      - POSTGRES_DB=formpessoa
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    ports:
+      - "${DB_PORT}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+#    networks:
+#      - app-network
+
+  adminer:
+    image: adminer
+    container_name: adminer_db
+    ports:
+      - "8091:8080"
+#    networks:
+#      - app-network
+
+#networks:
+#  app-network:
+
+volumes:
+  postgres_data:
+
