@@ -14,7 +14,7 @@
             <td>{{pessoa.email}}</td>
             <td>{{pessoa.telefone}}</td>
             <td> <i class="bi bi-pencil-square"></i> </td>
-            <td> <i class="bi bi-trash"></i> </td>
+            <td> <i style="cursor: pointer;" class="bi bi-trash" (click)="clickDeletarPessoa(pessoa.id)"></i> </td>
         </tr>       
     </tbody>
 </table>

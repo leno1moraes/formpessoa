@@ -21,10 +21,28 @@ export class ListarPessoasComponent implements OnInit {
     this.carregarListaDePessoasCadastradas();
   }
 
+  public clickDeletarPessoa(id: any){
+    this.deletarPessoa(id);
+  }  
+
   public carregarListaDePessoasCadastradas(){
     this.pessoaService.listarPessoas().subscribe((result)=>{
       this.pessoas = result;
     });
+  }
+
+  public deletarPessoa(id: any){
+    this.pessoaService.deletarPessoa(id).subscribe({
+      next: (response) => {
+        console.info("Deletado");
+        alert('Deletado com sucesso!');
+        window.location.reload();
+      },
+      error: (err) => {
+        console.error('Erro ao deletar: ', err);
+        alert('Erro ao deletar');
+      }
+    }); 
   }
 
 }
