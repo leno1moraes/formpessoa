@@ -26,7 +26,6 @@ export class ListarPessoasComponent implements OnInit {
   public carregarListaDePessoasCadastradas(){
     this.pessoaService.listarPessoas().subscribe((result)=>{
       this.pessoas = result;
-      //console.log("Lista de Pessoas", this.pessoas);
     });
 
   }
