@@ -15,9 +15,7 @@ export class ListarPessoasComponent implements OnInit {
 
   constructor(
     private pessoaService: PessoaService,
-  ){
-    
-  }
+  ){}
 
   ngOnInit(): void {
     this.carregarListaDePessoasCadastradas();
@@ -27,7 +25,6 @@ export class ListarPessoasComponent implements OnInit {
     this.pessoaService.listarPessoas().subscribe((result)=>{
       this.pessoas = result;
     });
-
   }
 
 }

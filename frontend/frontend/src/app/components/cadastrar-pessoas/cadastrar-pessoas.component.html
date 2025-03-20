@@ -2,22 +2,22 @@
     <div class="row g-3">
         <div class="col-md-6">
           <label for="inputNome4" class="form-label">Nome</label>
-          <input type="Nome" class="form-control" id="inputNome4">
+          <input type="Nome" [(ngModel)]="nome" class="form-control" id="inputNome4">
         </div>
         <div class="col-md-6">
           <label for="inputCpf4" class="form-label">Cpf</label>
-          <input type="Cpf" class="form-control" id="inputCpf4">
+          <input type="Cpf" [(ngModel)]="cpf" class="form-control" id="inputCpf4">
         </div>
         <div class="col-12">
           <label for="inputE-mail" class="form-label">E-mail</label>
-          <input type="text" class="form-control" id="inputE-mail">
+          <input type="text" [(ngModel)]="email" class="form-control" id="inputE-mail">
         </div>
         <div class="col-12">
           <label for="inputTelefone" class="form-label">Telefone</label>
-          <input type="text" class="form-control" id="inputTelefone" placeholder="(99)99999-9999">
+          <input type="text" [(ngModel)]="telefone" class="form-control" id="inputTelefone" placeholder="(99)99999-9999">
         </div>
         <div class="col-12">
-          <button class="btn btn-primary">Salvar</button>
+          <button class="btn btn-primary" (click)="clickCadastrarPessoa()">Salvar</button>
         </div>
       </div>    
 </div>
