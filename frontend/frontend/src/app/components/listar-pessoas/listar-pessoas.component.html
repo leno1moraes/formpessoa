@@ -1,0 +1,20 @@
+<table class="table table-striped">
+    <thead>
+        <th>Nome</th>
+        <th>Cpf</th>
+        <th>Email</th>
+        <th>Telefone</th>
+        <th></th>
+        <th></th>
+    </thead>
+    <tbody *ngFor="let pessoa of pessoas">
+        <tr>
+            <td>{{pessoa.nome}}</td>
+            <td>{{pessoa.cpf}}</td>
+            <td>{{pessoa.email}}</td>
+            <td>{{pessoa.telefone}}</td>
+            <td>edit</td>
+            <td>delete</td>
+        </tr>       
+    </tbody>
+</table>
