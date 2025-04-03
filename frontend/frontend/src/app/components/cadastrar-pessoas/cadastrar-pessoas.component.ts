@@ -1,9 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PessoaService } from '../../services/pessoa.service';
 import { Pessoa } from '../../models/pessoa.model';
 import { FormsModule } from '@angular/forms';
-import { ListarPessoasComponent } from '../listar-pessoas/listar-pessoas.component';
 
 @Component({
   selector: 'app-cadastrar-pessoas',
@@ -11,15 +10,25 @@ import { ListarPessoasComponent } from '../listar-pessoas/listar-pessoas.compone
   templateUrl: './cadastrar-pessoas.component.html',
   styleUrl: './cadastrar-pessoas.component.css'
 })
-export class CadastrarPessoasComponent {
+export class CadastrarPessoasComponent implements OnInit {
+  
+  info!: Boolean;
+  success!: Boolean;
+  warning!: Boolean;
+  danger!: Boolean;
   nome!: string;
   cpf!: string;
   telefone!: string;
-  email!: string;
+  email!: string;  
+  pessoas: Pessoa[]=[];
+  msg!: String;
 
   constructor(
     private pessoaService: PessoaService,    
   ){}
+  ngOnInit(): void {
+    this.carregarListaDePessoasCadastradas();
+  }
 
   public clickCadastrarPessoa(){
     let p = new Pessoa(this.nome, this.cpf, this.telefone, this.email);
@@ -29,16 +38,54 @@ export class CadastrarPessoasComponent {
   public cadastrarPessoa(pessoa: Pessoa){
     this.pessoaService.cadastrarPessoa(pessoa).subscribe({
       next: (response) => {
-        console.info("Sucesso: ", response);
-        alert('Cadastrada com sucesso!');
-        window.location.reload();
+        //console.info("Sucesso: ", response);
+        this.msg = 'Cadastrado com sucesso';
+        this.success = true;        
+        this.cpf = '';
+        this.email = '';
+        this.nome = '';
+        this.telefone = '';
+        this.carregarListaDePessoasCadastradas();
       },
       error: (err) => {
+        this.danger = true;
+        this.msg = 'Erro ao cadastrar !';
         console.error('Erro ao cadastrar pessoa: ', err);
-        alert('Erro ao cadastrar');
       }
     });    
   }
+
+  public carregarListaDePessoasCadastradas(){
+    this.pessoaService.listarPessoas().subscribe((result)=>{
+      this.pessoas = result;
+    });
+  }
+  
+  public clickDeletarPessoa(id: any){
+    this.deletarPessoa(id);
+  }   
+
+  public deletarPessoa(id: any){
+    this.pessoaService.deletarPessoa(id).subscribe({
+      next: (response) => {
+        this.msg = 'Deletado com sucesso';
+        this.success = true;
+        this.carregarListaDePessoasCadastradas();
+      },
+      error: (err) => {
+        console.error('Erro ao deletar: ', err);
+        //('Erro ao deletar');
+      }
+    }); 
+  }
+  
+  public resetarMsg(){
+    this.info = false;
+    this.success = false;
+    this.warning = false;
+    this.danger = false;    
+  }
+
 
 /*   public validarDadosAntesDeCadastrar(): boolean{
     if ( !this.nome || this.nome === undefined || this.nome === "")

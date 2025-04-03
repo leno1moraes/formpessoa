@@ -1,23 +1,75 @@
 <div>
-    <div class="row g-3">
-        <div class="col-md-6">
-          <label for="inputNome4" class="form-label">Nome</label>
-          <input type="Nome" [(ngModel)]="nome" class="form-control" id="inputNome4">
-        </div>
-        <div class="col-md-6">
-          <label for="inputCpf4" class="form-label">Cpf</label>
-          <input type="Cpf" [(ngModel)]="cpf" class="form-control" id="inputCpf4">
-        </div>
-        <div class="col-12">
-          <label for="inputE-mail" class="form-label">E-mail</label>
-          <input type="text" [(ngModel)]="email" class="form-control" id="inputE-mail">
-        </div>
-        <div class="col-12">
-          <label for="inputTelefone" class="form-label">Telefone</label>
-          <input type="text" [(ngModel)]="telefone" class="form-control" id="inputTelefone" placeholder="(99)99999-9999">
-        </div>
-        <div class="col-12">
-          <button class="btn btn-primary" (click)="clickCadastrarPessoa()">Salvar</button>
-        </div>
+  <div class="row">
+    <div class="col">
+
+      <div *ngIf="info" class="alert alert-info alert-dismissible fade show" role="alert">
+          <span>{{ msg }}</span>
+          <button (click)="resetarMsg()" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" tabindex="-1"></button>
+      </div>
+
+      <div *ngIf="success" class="alert alert-success alert-dismissible fade show" role="alert">
+          <span>{{ msg }}</span>
+          <button (click)="resetarMsg()" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" tabindex="-1"></button>
       </div>    
+
+      <div *ngIf="warning" class="alert alert-warning alert-dismissible fade show" role="alert">
+          <span>{{ msg }}</span>
+          <button (click)="resetarMsg()" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" tabindex="-1"></button>
+      </div> 
+
+      <div *ngIf="danger" class="alert alert-danger alert-dismissible fade show" role="alert">
+          <span>{{ msg }}</span>
+          <button (click)="resetarMsg()" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" tabindex="-1"></button>
+      </div>      
+
+    </div>
+  </div>
+
+  <div class="row g-3">
+      <div class="col-md-6">
+        <label for="inputNome4" class="form-label">Nome</label>
+        <input type="Nome" [(ngModel)]="nome" class="form-control" id="inputNome4">
+      </div>
+      <div class="col-md-6">
+        <label for="inputCpf4" class="form-label">Cpf</label>
+        <input type="Cpf" [(ngModel)]="cpf" class="form-control" id="inputCpf4">
+      </div>
+      <div class="col-12">
+        <label for="inputE-mail" class="form-label">E-mail</label>
+        <input type="text" [(ngModel)]="email" class="form-control" id="inputE-mail">
+      </div>
+      <div class="col-12">
+        <label for="inputTelefone" class="form-label">Telefone</label>
+        <input type="text" [(ngModel)]="telefone" class="form-control" id="inputTelefone" placeholder="(99)99999-9999">
+      </div>
+      <div class="col-12">
+        <button class="btn btn-primary" (click)="clickCadastrarPessoa()">Salvar</button>
+      </div>
+  </div>    
+
+  <div class="row">
+    <div class="col"> 
+      <table class="table table-striped">
+        <thead>
+            <th>Nome</th>
+            <th>Cpf</th>
+            <th>Email</th>
+            <th>Telefone</th>
+            <th></th>
+            <th></th>
+        </thead>
+        <tbody *ngFor="let pessoa of pessoas">
+            <tr>
+                <td>{{pessoa.nome}}</td>
+                <td>{{pessoa.cpf}}</td>
+                <td>{{pessoa.email}}</td>
+                <td>{{pessoa.telefone}}</td>
+                <td> <i class="bi bi-pencil-square"></i> </td>
+                <td> <i style="cursor: pointer;" class="bi bi-trash" (click)="clickDeletarPessoa(pessoa.id)"></i> </td>
+            </tr>       
+        </tbody>
+      </table>
+    </div>
+  </div>
+
 </div>
