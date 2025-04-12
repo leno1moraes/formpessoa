@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { PessoaService } from '../../services/pessoa.service';
 import { Pessoa } from '../../models/pessoa.model';
 import { FormsModule } from '@angular/forms';
+import { formatarCpfInput } from '../../util/cpf-utils';
+import { formatarTelefoneInput } from '../../util/telefone-utils';
 
 @Component({
   selector: 'app-cadastrar-pessoas',
@@ -85,6 +87,16 @@ export class CadastrarPessoasComponent implements OnInit {
     this.warning = false;
     this.danger = false;    
   }
+
+  public onCpfChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    this.cpf = formatarCpfInput(input.value);
+  }
+
+  public onTelefoneChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    this.telefone = formatarTelefoneInput(input.value);
+  }  
 
 
 /*   public validarDadosAntesDeCadastrar(): boolean{

@@ -27,12 +27,18 @@
 
   <div class="row g-3">
       <div class="col-md-6">
-        <label for="inputNome4" class="form-label">Nome</label>
-        <input type="Nome" [(ngModel)]="nome" class="form-control" id="inputNome4">
+        <label for="inputNome" class="form-label">Nome</label>
+        <input type="Nome" [(ngModel)]="nome" class="form-control" id="inputNome">
       </div>
       <div class="col-md-6">
-        <label for="inputCpf4" class="form-label">Cpf</label>
-        <input type="Cpf" [(ngModel)]="cpf" class="form-control" id="inputCpf4">
+        <label for="inputCpf" class="form-label">Cpf</label>
+        <input type="Cpf" 
+                [(ngModel)]="cpf" 
+                class="form-control" 
+                maxlength="14"
+                (input)="onCpfChange($event)"
+                placeholder="000.000.000-00"
+                id="inputCpf">
       </div>
       <div class="col-12">
         <label for="inputE-mail" class="form-label">E-mail</label>
@@ -40,7 +46,13 @@
       </div>
       <div class="col-12">
         <label for="inputTelefone" class="form-label">Telefone</label>
-        <input type="text" [(ngModel)]="telefone" class="form-control" id="inputTelefone" placeholder="(99)99999-9999">
+        <input type="text" 
+                [(ngModel)]="telefone" 
+                class="form-control"
+                placeholder="(00)00000-0000"
+                maxlength="15"
+                (input)="onTelefoneChange($event)"
+                id="inputTelefone">
       </div>
       <div class="col-12">
         <button class="btn btn-primary" (click)="clickCadastrarPessoa()">Salvar</button>
