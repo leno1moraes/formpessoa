@@ -1,5 +1,6 @@
 package com.formpessoa.backend.controller;
 
+import com.formpessoa.backend.dto.PessoaDTO;
 import com.formpessoa.backend.model.Pessoa;
 import com.formpessoa.backend.service.PessoaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +22,8 @@ public class PessoaController {
     }
 
     @PostMapping
-    public Pessoa salvar(@RequestBody Pessoa pessoa) {
-        return pessoaService.salvar(pessoa);
+    public Pessoa salvar(@RequestBody PessoaDTO dto) {
+        return pessoaService.salvar(dto);
     }
 
     @GetMapping("/{id}")
@@ -36,6 +37,11 @@ public class PessoaController {
     public ResponseEntity<Void> excluir(@PathVariable Long id) {
         pessoaService.excluir(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{id}")
+    public Pessoa atulizar(@PathVariable Long id, @RequestBody PessoaDTO dto){
+        return pessoaService.atualizar(id, dto);
     }
 }
 
