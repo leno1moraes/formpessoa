@@ -25,7 +25,7 @@ public class PessoaService {
         return pessoaRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
     }
 
-    public Pessoa salvar(PessoaDTO dto) {
+    public PessoaDTO salvar(PessoaDTO dto) {
         if (pessoaValidation.validarCampos(dto))
             throw new PessoaMessageValidation("Todos os campos são obrigatórios");
 
@@ -34,7 +34,13 @@ public class PessoaService {
         pessoa.setEmail(dto.email());
         pessoa.setNome(dto.nome());
         pessoa.setTelefone(dto.telefone());
-        return pessoaRepository.save(pessoa);
+
+        Pessoa p = pessoaRepository.save(pessoa);
+        PessoaDTO d = new PessoaDTO(p.getNome(),
+                                    p.getCpf(),
+                                    p.getTelefone(),
+                                    p.getEmail());
+        return d;
     }
 
     public Optional<Pessoa> buscarPorId(Long id) {

@@ -22,7 +22,7 @@ public class PessoaController {
     }
 
     @PostMapping
-    public Pessoa salvar(@RequestBody PessoaDTO dto) {
+    public PessoaDTO salvar(@RequestBody PessoaDTO dto) {
         return pessoaService.salvar(dto);
     }
 
