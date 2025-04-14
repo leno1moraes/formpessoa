@@ -17,7 +17,7 @@ public class PessoaController {
     private PessoaService pessoaService;
 
     @GetMapping
-    public List<Pessoa> listar() {
+    public List<PessoaDTO> listar() {
         return pessoaService.listar();
     }
 
@@ -27,7 +27,7 @@ public class PessoaController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Pessoa> buscarPorId(@PathVariable Long id) {
+    public ResponseEntity<PessoaDTO> buscarPorId(@PathVariable Long id) {
         return pessoaService.buscarPorId(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());

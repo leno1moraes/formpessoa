@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,8 +22,20 @@ public class PessoaService {
     @Autowired
     private PessoaValidation pessoaValidation;
 
-    public List<Pessoa> listar() {
-        return pessoaRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
+    public List<PessoaDTO> listar() {
+        List<Pessoa> pessoas = pessoaRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
+        List<PessoaDTO> dtos = new ArrayList<>();
+        if (pessoas.size() > 0){
+            for (Pessoa pessoa : pessoas){
+                dtos.add(new PessoaDTO(pessoa.getId(),
+                                        pessoa.getNome(),
+                                        pessoa.getCpf(),
+                                        pessoa.getTelefone(),
+                                        pessoa.getEmail()));
+
+            }
+        }
+        return dtos;
     }
 
     public PessoaDTO salvar(PessoaDTO dto) {
@@ -36,37 +49,43 @@ public class PessoaService {
         pessoa.setTelefone(dto.telefone());
 
         Pessoa p = pessoaRepository.save(pessoa);
-        PessoaDTO d = new PessoaDTO(p.getNome(),
+        PessoaDTO d = new PessoaDTO(null,
+                                    p.getNome(),
                                     p.getCpf(),
                                     p.getTelefone(),
                                     p.getEmail());
         return d;
     }
 
-    public Optional<Pessoa> buscarPorId(Long id) {
+    public PessoaDTO buscarPorId(Long id) {
         Pessoa pessoaExistente = pessoaRepository.findById(id)
                 .orElseThrow(() -> new PessoaMessageValidation("Pessoa com ID " + id + " não encontrada."));
-        return Optional.ofNullable(pessoaExistente);
+        PessoaDTO dto = new PessoaDTO(pessoaExistente.getId(),
+                                        pessoaExistente.getNome(),
+                                        pessoaExistente.getCpf(),
+                                        pessoaExistente.getEmail(),
+                                        pessoaExistente.getEmail());
+        return dto;
     }
 
     public void excluir(Long id) {
-        Pessoa pessoaExistente = pessoaRepository.findById(id)
-                .orElseThrow(() -> new PessoaMessageValidation("Pessoa com ID " + id + " não encontrada."));
+        buscarPorId(id);
         pessoaRepository.deleteById(id);
     }
 
     public Pessoa atualizar(Long id, PessoaDTO dto) {
-        Pessoa pessoaExistente = pessoaRepository.findById(id)
-                .orElseThrow(() -> new PessoaMessageValidation("Pessoa com ID " + id + " não encontrada."));
+        PessoaDTO dtoExiste = buscarPorId(id);
 
         if (pessoaValidation.validarCampos(dto))
             throw new PessoaMessageValidation("Todos os campos são obrigatórios");
 
-        pessoaExistente.setCpf(dto.cpf());
-        pessoaExistente.setEmail(dto.email());
-        pessoaExistente.setNome(dto.nome());
-        pessoaExistente.setTelefone(dto.telefone());
-        return pessoaRepository.save(pessoaExistente);
+        Pessoa pessoa = new Pessoa();
+        pessoa.setId(dtoExiste.id());
+        pessoa.setCpf(dtoExiste.cpf());
+        pessoa.setEmail(dtoExiste.email());
+        pessoa.setNome(dtoExiste.nome());
+        pessoa.setTelefone(dtoExiste.telefone());
+        return pessoaRepository.save(pessoa);
     }
 
 }
