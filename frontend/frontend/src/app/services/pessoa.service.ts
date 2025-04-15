@@ -24,4 +24,12 @@ export class PessoaService {
     return this.http.delete<void>(this.apiUrl + 'pessoas/' + id.toString());
   }
 
+  acharPessoa(id: number): Observable<Pessoa> {
+    return this.http.get<Pessoa>(this.apiUrl + 'pessoas/' + id.toString()); 
+  }
+
+  atualizarPessoa(id: number, pessoa: Pessoa): Observable<Pessoa>{
+    return this.http.put<Pessoa>(this.apiUrl + 'pessoas/' + id.toString(), pessoa);
+  }
+
 }

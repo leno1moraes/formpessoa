@@ -27,10 +27,8 @@ public class PessoaController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PessoaDTO> buscarPorId(@PathVariable Long id) {
-        return pessoaService.buscarPorId(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public PessoaDTO buscarPorId(@PathVariable Long id) {
+        return pessoaService.buscarPorId(id);
     }
 
     @DeleteMapping("/{id}")
@@ -40,7 +38,7 @@ public class PessoaController {
     }
 
     @PutMapping("/{id}")
-    public Pessoa atulizar(@PathVariable Long id, @RequestBody PessoaDTO dto){
+    public Pessoa atualizar(@PathVariable Long id, @RequestBody PessoaDTO dto){
         return pessoaService.atualizar(id, dto);
     }
 }

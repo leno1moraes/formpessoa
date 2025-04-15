@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -63,7 +64,7 @@ public class PessoaService {
         PessoaDTO dto = new PessoaDTO(pessoaExistente.getId(),
                                         pessoaExistente.getNome(),
                                         pessoaExistente.getCpf(),
-                                        pessoaExistente.getEmail(),
+                                        pessoaExistente.getTelefone(),
                                         pessoaExistente.getEmail());
         return dto;
     }
@@ -74,17 +75,21 @@ public class PessoaService {
     }
 
     public Pessoa atualizar(Long id, PessoaDTO dto) {
-        PessoaDTO dtoExiste = buscarPorId(id);
+        buscarPorId(id);
+        buscarPorId(dto.id());
+
+        if (!Objects.equals(id, dto.id()))
+            throw new PessoaMessageValidation("Erro interno [identificadores diferentes]");
 
         if (pessoaValidation.validarCampos(dto))
             throw new PessoaMessageValidation("Todos os campos são obrigatórios");
 
         Pessoa pessoa = new Pessoa();
-        pessoa.setId(dtoExiste.id());
-        pessoa.setCpf(dtoExiste.cpf());
-        pessoa.setEmail(dtoExiste.email());
-        pessoa.setNome(dtoExiste.nome());
-        pessoa.setTelefone(dtoExiste.telefone());
+        pessoa.setId(dto.id());
+        pessoa.setCpf(dto.cpf());
+        pessoa.setEmail(dto.email());
+        pessoa.setNome(dto.nome());
+        pessoa.setTelefone(dto.telefone());
         return pessoaRepository.save(pessoa);
     }
 

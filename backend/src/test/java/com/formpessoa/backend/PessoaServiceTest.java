@@ -33,7 +33,8 @@ public class PessoaServiceTest {
 
     @Test
     public void validarCamposComErro(){
-        PessoaDTO dtoerros = new PessoaDTO("",
+        PessoaDTO dtoerros = new PessoaDTO(null,
+                "",
                 "000.000.000-00",
                 "(00)00000-0000",
                 "email@email.com");
@@ -46,7 +47,8 @@ public class PessoaServiceTest {
 
     @Test
     public void validarCamposComSucesso(){
-        PessoaDTO dtosucessantes = new PessoaDTO("fulano de tal",
+        PessoaDTO dtosucessantes = new PessoaDTO(null,
+                "fulano de tal",
                 "000.000.000-00",
                 "(00)00000-0000",
                 "email@email.com");
