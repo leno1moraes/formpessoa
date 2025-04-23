@@ -42,10 +42,8 @@ services:
     build:
       context: ./frontend
     container_name: frontend
-    depends_on:
-      - backend
-    volumes:
-      - frontend_dist:/usr/share/nginx/html      
+    expose:
+      - 4200        
     networks:
       - app-network
 
@@ -55,9 +53,6 @@ services:
     container_name: nginx
     ports:
       - "80:80"
-    depends_on:
-      - frontend
-      - backend
     volumes:
       - frontend_dist:/usr/share/nginx/html:ro      
     networks:
